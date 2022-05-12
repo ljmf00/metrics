@@ -10,7 +10,26 @@ jobs:
   github:
     runs-on: ubuntu-latest
     steps:
-      - uses: lowlighter/metrics@latest
+      - name: Generate HTML
+        uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          output_action: none
+          config_timezone: Europe/Lisbon
+          config_twemoji: yes
+          config_octicon: yes
+          config_display: columns
+          repositories_forks: yes
+          repositories: 500
+          repositories_affiliations: owner,collaborator,organization_member
+          base_indepth: yes
+          config_output: insights
+          optimize: css, xml, svg
+          experimental_features: --optimize-svg
+          debug_print: yes
+
+      - name: Generate SVG
+        uses: lowlighter/metrics@latest
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           output_action: none
@@ -25,10 +44,11 @@ jobs:
           repositories: 500
           repositories_affiliations: owner,collaborator,organization_member
           base_indepth: yes
-          config_output: insights
+          config_output: svg
           optimize: css, xml, svg
           experimental_features: --optimize-svg
           debug_print: yes
+
       # Deploy
       - uses: actions/setup-python@v3
       - name: Deploy
@@ -38,10 +58,11 @@ jobs:
           venv/bin/pip install markdown-to-presentation
           mkdir -p dist
           cp /metrics_renders/github-metrics.html dist/index.html
+          cp /metrics_renders/github-metrics.svg dist/metrics.svg
           cd dist
           ../venv/bin/markdown-to-presentation push \
             --default-branch master \
             --pages-branch deploy \
-            index.html
+            index.html metrics.svg
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
