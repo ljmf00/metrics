@@ -14,11 +14,14 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           output_action: none
-          config_octicon: true
-          repositories_forks: true
+          config_octicon: yes
+          plugin_calendar: yes
+          plugin_calendar_limit: 0
+          plugin_traffic: yes
+          repositories_forks: yes
           repositories: 500
           repositories_affiliations: owner,collaborator,organization_member
-          base_indepth: true
+          base_indepth: yes
           config_output: insights
           optimize: css, xml, svg
           experimental_features: --optimize-svg
