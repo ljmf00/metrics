@@ -16,7 +16,8 @@ jobs:
           output_action: none
           config_octicon: true
           repositories_forks: true
-          repositories: 300
+          repositories: 500
+          repositories_affiliations: owner,collaborator,organization_member
           base_indepth: true
           config_output: insights
           optimize: css, xml, svg
