@@ -14,8 +14,10 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           output_action: none
-          committer_branch: deploy
-          committer_message: "chore: update metrics"
+          config_octicon: true
+          repositories_forks: true
+          repositories: 300
+          base_indepth: true
           config_output: insights
           optimize: css, xml, svg
           experimental_features: --optimize-svg
