@@ -13,9 +13,25 @@ jobs:
       - uses: lowlighter/metrics@latest
         with:
           token: ${{ secrets.METRICS_TOKEN }}
-          output_action: commit
+          output_action: none
           committer_branch: deploy
           committer_message: "chore: update metrics"
           config_output: insights
           optimize: css, xml, svg
           experimental_features: --optimize-svg
+      # Deploy
+      - uses: actions/setup-python@v3
+      - name: Deploy
+        run: |
+          pip install virtualenv
+          virtualenv venv -ppython3
+          venv/bin/pip install markdown-to-presentation
+          mkdir -p dist
+          cp /metrics_renders/github-metrics.html dist/index.html
+          cd dist
+          ../venv/bin/markdown-to-presentation push \
+            --default-branch master \
+            --pages-branch deploy \
+            index.html
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
