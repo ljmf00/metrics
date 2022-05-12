@@ -14,7 +14,10 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           output_action: none
+          config_timezone: Europe/Lisbon
+          config_twemoji: yes
           config_octicon: yes
+          config_display: columns
           plugin_calendar: yes
           plugin_calendar_limit: 0
           plugin_traffic: yes
@@ -25,6 +28,7 @@ jobs:
           config_output: insights
           optimize: css, xml, svg
           experimental_features: --optimize-svg
+          debug_print: yes
       # Deploy
       - uses: actions/setup-python@v3
       - name: Deploy
