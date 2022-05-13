@@ -26,7 +26,6 @@ jobs:
           config_output: insights
           optimize: css, xml, svg
           experimental_features: --optimize-svg
-          debug_print: yes
 
       - name: Generate SVG
         uses: lowlighter/metrics@latest
@@ -47,7 +46,6 @@ jobs:
           config_output: svg
           optimize: css, xml, svg
           experimental_features: --optimize-svg
-          debug_print: yes
 
       # Deploy
       - uses: actions/setup-python@v3
